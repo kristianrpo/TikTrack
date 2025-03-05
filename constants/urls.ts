@@ -1,7 +1,8 @@
 const ROUTES = {
   HOME: "/",
   INFLUENCERS: "/influencers",
-  USERS: "/users",  // 👈 Agregamos esta línea
+  USERS: "/users",  
+  LOGIN: '/api/auth/login',
 } as const;
 
 export default ROUTES;
