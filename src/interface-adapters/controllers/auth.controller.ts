@@ -1,42 +1,41 @@
-import { NextRequest, NextResponse } from "next/server";
-import { UserLoginUseCase } from "@/application/use-cases/user-login.use-case";
-import { AuthService } from "@/infrastructure/services/auth.service";
+import { userService } from '@/application/services/user.service'; // Importamos el userService
+import { generateToken } from '@/shared/utils/jwtUtils';
+import { comparePasswords } from '@/shared/utils/passwordUtils';
 
-const authService = new AuthService();
+export const login = async (body: { email: string; password: string }) => {
+    const { email, password } = body;
 
-export class AuthController {
-    async login(req: NextRequest): Promise<NextResponse> {
-        try {
-            const { email, password } = await req.json();
-
-            const userLoginUseCase = new UserLoginUseCase();
-            const user = await userLoginUseCase.execute(email, password);
-
-            if (!user) {
-                return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
-            }
-
-            // Generamos el token JWT
-            const token = authService.generateToken(user.getId().toString(), user.getRole());
-
-            return NextResponse.json({
-                message: "Login successful",
-                token,   // Devolvemos el token al frontend
-                user: {
-                    id: user.getId(),
-                    username: user.getUsername(),
-                    email: user.getEmail(),
-                    role: user.getRole(),
-                },
-            });
-        } catch (error) {
-            console.error(error);
-            if (error instanceof Error) {
-                return NextResponse.json({ error: error.message }, { status: 500 });
-            }
-            return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
-        }
+    const user = await userService.findByEmail(email); // Usamos el servicio aquí
+    if (!user) {
+        throw new Error('Usuario no encontrado');
     }
-}
 
-export const authController = new AuthController();
+    const isValid = await comparePasswords(password, user.password);
+    if (!isValid) {
+        throw new Error('Contraseña incorrecta');
+    }
+
+    const token = generateToken(user);
+
+    return {
+        user: {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            role: user.role,
+        },
+        token,
+    };
+};
+
+export const register = async (body: { username: string; email: string; password: string }) => {
+    const newUser = await userService.createUser(body); // Usamos el servicio aquí
+    return {
+        message: 'Usuario registrado correctamente',
+        user: {
+            id: newUser.id,
+            username: newUser.username,
+            email: newUser.email,
+        },
+    };
+};

@@ -75,4 +75,28 @@ export default class UserRepository implements IUserRepository {
 
         return response[0];
     }
+
+    /**
+     * Crea un nuevo usuario en la base de datos.
+     * @param userData - Datos del usuario a crear.
+     * @returns El usuario creado.
+     */
+    async createUser(userData: { username: string; email: string; password: string }) {
+        const { username, email, password } = userData;
+
+        // Insertar el nuevo usuario en la base de datos
+        const [newUser] = await db
+            .insert(usersTable)
+            .values({
+                username,
+                email,
+                password, // Recuerda encriptar la contraseña antes de guardarla
+                role: 'user', // O lo que sea necesario para tu aplicación
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            })
+            .returning(); // Esto retorna el objeto del usuario creado
+
+        return newUser;
+    }
 }

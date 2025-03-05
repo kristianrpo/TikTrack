@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key"; // Recuerda configurarlo en .env
+const JWT_SECRET = process.env.JWT_SECRET || "secret"; 
 
 export class AuthService {
 

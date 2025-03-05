@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuth } from '@/src/application/services/auth.hook';
+import { useAuth } from '@/application/services/auth.hook';
 import { useRouter } from 'next/navigation';
 
 export default function SignInPage() {
