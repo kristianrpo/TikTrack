@@ -8,20 +8,24 @@ export class UserLoginUseCase {
   private authService: AuthService;
 
   constructor() {
-    this.userRepository = repositoryContainer.get<IUserRepository>("IUserRepository");
+    this.userRepository =
+      repositoryContainer.get<IUserRepository>("IUserRepository");
     this.authService = new AuthService();
   }
 
   async execute(email: string, password: string): Promise<User | null> {
     const user = await this.userRepository.findByEmail(email);
-    
+
     if (!user) {
       // No se encontró el usuario
       return null;
     }
 
-    const passwordMatches = await this.authService.comparePasswords(password, user.password);
-    
+    const passwordMatches = await this.authService.comparePasswords(
+      password,
+      user.password
+    );
+
     if (!passwordMatches) {
       // Contraseña incorrecta
       return null;

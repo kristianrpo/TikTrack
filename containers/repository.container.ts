@@ -14,8 +14,6 @@ container
   .bind<IInfluencerRepository>("IInfluencerRepository")
   .to(InfluencerRepository);
 
-container
-  .bind<IUserRepository>("IUserRepository")
-  .to(UserRepository);
+container.bind<IUserRepository>("IUserRepository").to(UserRepository);
 
 export default container;

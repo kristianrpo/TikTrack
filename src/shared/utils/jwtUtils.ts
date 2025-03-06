@@ -1,17 +1,15 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
-const SECRET = process.env.JWT_SECRET || 'supersecret';
+const SECRET = process.env.JWT_SECRET || "supersecret";
 
 interface User {
-    id: string;
-    email: string;
-    role: string;
+  id: string;
+  email: string;
+  role: string;
 }
 
 export const generateToken = (user: User): string => {
-    return jwt.sign(
-        { id: user.id, email: user.email, role: user.role },
-        SECRET,
-        { expiresIn: '1d' }
-    );
+  return jwt.sign({ id: user.id, email: user.email, role: user.role }, SECRET, {
+    expiresIn: "1d",
+  });
 };

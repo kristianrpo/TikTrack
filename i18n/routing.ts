@@ -18,6 +18,14 @@ export const routing = defineRouting({
       en: "/users",
       es: "/usuarios",
     },
+    "/sign-in": {
+      en: "/sign-in",
+      es: "/iniciar-sesion",
+    },
+    "/sign-up": {
+      en: "/sign-up",
+      es: "/registrarse",
+    },
   },
 });
 

@@ -15,9 +15,8 @@ export class UserUseCases {
     hasNextPage: boolean;
     hasPreviousPage: boolean;
   }> {
-    const repository = repositoryContainer.get<IUserRepository>(
-      "IUserRepository"
-    );
+    const repository =
+      repositoryContainer.get<IUserRepository>("IUserRepository");
     const tempUsers = await repository.listPaginated(pageNumber, limit);
     const tempCount = await repository.count();
 
@@ -29,7 +28,7 @@ export class UserUseCases {
         user.password,
         user.role,
         user.createdAt,
-        user.updatedAt,
+        user.updatedAt
       );
     });
 
