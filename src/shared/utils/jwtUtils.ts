@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const SECRET = process.env.JWT_SECRET || "supersecret";
+const SECRET = process.env.JWT_SECRET || "secret";
 
 interface User {
   id: string;

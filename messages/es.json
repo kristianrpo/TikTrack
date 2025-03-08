@@ -17,7 +17,8 @@
   "NavBar": {
     "home": "Inicio",
     "influencers": "Influencers",
-    "getStarted": "Empezar"
+    "getStarted": "Comenzar",
+    "profile": "Perfil"
   },
 
   "Cards": {
@@ -36,5 +37,26 @@
     "entries": "Entradas",
     "previous": "Anterior",
     "next": "Siguiente"
+  },
+
+  "SignInPage": {
+    "title": "Iniciar Sesión",
+    "emailLabel": "Correo electrónico",
+    "passwordLabel": "Contraseña",
+    "signInButton": "Iniciar Sesión",
+    "loading": "Cargando...",
+    "noAccount": "¿No tienes una cuenta?",
+    "registerLink": "Regístrate"
+  },
+
+  "SignUpPage": {
+    "title": "Registro",
+    "usernameLabel": "Nombre de Usuario",
+    "emailLabel": "Correo Electrónico",
+    "passwordLabel": "Contraseña",
+    "signUpButton": "Registrarse",
+    "loading": "Registrando...",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "signInLink": "Inicia Sesión"
   }
 }

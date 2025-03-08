@@ -18,20 +18,9 @@ export function useAuth() {
     initialized: false,
   });
 
+  // 🔹 Solo inicializa el estado, pero no recupera credenciales automáticamente
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedUser = sessionStorage.getItem("user"); // ⬅️ Usamos sessionStorage en lugar de localStorage
-      if (storedUser) {
-        setState({
-          user: JSON.parse(storedUser),
-          error: null,
-          loading: false,
-          initialized: true,
-        });
-      } else {
-        setState((prevState) => ({ ...prevState, initialized: true }));
-      }
-    }
+    setState((prevState) => ({ ...prevState, initialized: true }));
   }, []);
 
   const login = async (email: string, password: string) => {
@@ -41,7 +30,7 @@ export function useAuth() {
       const user = await loginUser(email, password);
       if (user) {
         if (typeof window !== "undefined") {
-          sessionStorage.setItem("user", JSON.stringify(user)); // ⬅️ Guardamos en sessionStorage
+          sessionStorage.setItem("user", JSON.stringify(user)); // Almacena credenciales solo después de un inicio de sesión exitoso
           sessionStorage.setItem("token", user.token);
         }
         setState({ user, error: null, loading: false, initialized: true });
@@ -66,7 +55,7 @@ export function useAuth() {
 
   const logout = () => {
     if (typeof window !== "undefined") {
-      sessionStorage.removeItem("user"); // ⬅️ Eliminamos de sessionStorage
+      sessionStorage.removeItem("user"); 
       sessionStorage.removeItem("token");
     }
     setState({ user: null, error: null, loading: false, initialized: true });

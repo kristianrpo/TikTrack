@@ -1,5 +1,7 @@
+"use client"; // Asegúrate de marcar el componente como "use client"
+
 import { useTranslations } from "next-intl";
-import { Link } from "~/i18n/routing";
+import { Link, useRouter } from "~/i18n/routing"; // Importa useRouter de next-intl
 import Image from "next/image";
 import Button from "./button";
 import ROUTES from "~/constants/urls";
@@ -11,7 +13,8 @@ type NavbarLink = {
 };
 
 export default function NavBar(): JSX.Element {
-  const t = useTranslations("NavBar");
+  const t = useTranslations("NavBar"); // Usa useTranslations para traducciones
+  const router = useRouter(); // Usa useRouter para la redirección
 
   const navbarPages: (keyof typeof ROUTES)[] = ["HOME", "INFLUENCERS"];
 
@@ -19,7 +22,7 @@ export default function NavBar(): JSX.Element {
 
   navbarPages.forEach((pageKey) => {
     navbarLinks.push({
-      label: t(pageKey.toLowerCase()),
+      label: t(pageKey.toLowerCase()), // Traduce la etiqueta
       path: ROUTES[pageKey],
     });
   });
@@ -36,7 +39,12 @@ export default function NavBar(): JSX.Element {
           priority={true}
         />
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <Button variant="primary">{t("getStarted")}</Button>
+          <Button
+            variant="primary"
+            onClick={() => router.push("/sign-in")} // Redirige a /sign-in (internacionalizado)
+          >
+            {t("getStarted")} {/* Usa la traducción para el botón */}
+          </Button>
           <button
             data-collapse-toggle="navbar-cta"
             type="button"

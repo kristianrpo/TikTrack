@@ -2,13 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/application/services/auth.hook";
-import { useRouter } from "~/i18n/routing";
+import { useRouter, Link } from "~/i18n/routing";
+import { useTranslations } from "next-intl";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, error, loading, user, initialized } = useAuth();
+  const { login, error, loading, user } = useAuth();
   const router = useRouter();
+  const t = useTranslations("SignInPage"); // Usa useTranslations para traducciones
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,30 +18,21 @@ export default function SignInPage() {
   };
 
   useEffect(() => {
-    if (!initialized) return; // ⬅️ Esperamos a que `useAuth` termine de cargar la sesión
-
     if (user) {
-      router.push("/influencers"); // ⬅️ Redirige solo si el usuario está autenticado
+      router.push("/");
     }
-  }, [initialized, user, router]);
-
-  // 🔹 Si `initialized` es `false`, mostramos un loading para evitar parpadeos
-  if (!initialized) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-gray-600">Cargando...</p>
-      </div>
-    );
-  }
+  }, [user, router]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Iniciar Sesión</h2>
+        <h2 className="text-2xl font-bold text-center mb-6 text-purple">
+          {t("title")} {/* Usa la traducción para el título */}
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Correo electrónico
+              {t("emailLabel")} {/* Usa la traducción para la etiqueta de correo */}
             </label>
             <input
               type="email"
@@ -51,7 +44,7 @@ export default function SignInPage() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Contraseña
+              {t("passwordLabel")} {/* Usa la traducción para la etiqueta de contraseña */}
             </label>
             <input
               type="password"
@@ -65,11 +58,22 @@ export default function SignInPage() {
           <div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+              className="w-full bg-purple text-white py-2 rounded hover:bg-darkPurple transition-colors"
               disabled={loading}
             >
-              {loading ? "Cargando..." : "Iniciar Sesión"}
+              {loading ? t("loading") : t("signInButton")} {/* Usa la traducción para el botón */}
             </button>
+          </div>
+          <div className="text-center">
+            <span className="text-sm text-gray-600">
+              {t("noAccount")}{" "} {/* Usa la traducción para el texto */}
+              <Link
+                href="/sign-up" // Redirige a /sign-up (internacionalizado)
+                className="text-purple hover:underline"
+              >
+                {t("registerLink")} {/* Usa la traducción para el enlace */}
+              </Link>
+            </span>
           </div>
         </form>
       </div>

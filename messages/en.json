@@ -17,7 +17,8 @@
   "NavBar": {
     "home": "Home",
     "influencers": "Influencers",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "profile": "Profile"
   },
 
   "Cards": {
@@ -36,5 +37,26 @@
     "entries": "Entries",
     "previous": "Previous",
     "next": "Next"
+  },
+
+  "SignInPage": {
+    "title": "Sign In",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "signInButton": "Sign In",
+    "loading": "Loading...",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Register"
+  },
+
+  "SignUpPage": {
+    "title": "Sign Up",
+    "usernameLabel": "Username",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "signUpButton": "Sign Up",
+    "loading": "Registering...",
+    "haveAccount": "Already have an account?",
+    "signInLink": "Sign In"
   }
 }

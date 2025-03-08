@@ -43,6 +43,8 @@ export default class UserRepository implements IUserRepository {
     createdAt: Date;
     updatedAt: Date;
   } | null> {
+    console.log("🔍 Buscando usuario por email:", email); // Log para depuración
+
     const response = await db
       .select()
       .from(usersTable)
@@ -50,9 +52,11 @@ export default class UserRepository implements IUserRepository {
       .limit(1);
 
     if (response.length === 0) {
+      console.log("❌ Usuario no encontrado"); // Log para depuración
       return null;
     }
 
+    console.log("✅ Usuario encontrado:", response[0]); // Log para depuración
     return response[0];
   }
 
@@ -60,9 +64,11 @@ export default class UserRepository implements IUserRepository {
     username: string;
     email: string;
     password: string;
-    role: string; // Se agrega el rol
+    role: string;
   }) {
     const { username, email, password, role } = userData;
+
+    console.log("📝 Creando usuario:", { username, email, role }); // Log para depuración
 
     const [newUser] = await db
       .insert(usersTable)
@@ -83,6 +89,7 @@ export default class UserRepository implements IUserRepository {
         updatedAt: usersTable.updatedAt,
       });
 
+    console.log("✅ Usuario creado:", newUser); // Log para depuración
     return newUser;
   }
 }
