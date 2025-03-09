@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "id": "313d913e-286f-41cc-a7a7-295b8fed9ae8",
+=======
+  "id": "dc3a3396-97f4-4465-9eac-83b4f9b6c034",
+>>>>>>> origin/staging
   "prevId": "6dc4bf2c-390a-4144-b3dd-d50ee6d73b93",
   "version": "7",
   "dialect": "postgresql",
@@ -97,6 +101,15 @@
           "primaryKey": false,
           "notNull": true
         },
+<<<<<<< HEAD
+=======
+        "featured_videos": {
+          "name": "featured_videos",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true
+        },
+>>>>>>> origin/staging
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
@@ -127,6 +140,7 @@
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
+<<<<<<< HEAD
     },
     "public.users": {
       "name": "users",
@@ -210,6 +224,8 @@
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
+=======
+>>>>>>> origin/staging
     }
   },
   "enums": {},

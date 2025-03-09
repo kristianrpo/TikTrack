@@ -6,6 +6,7 @@ const ROUTES = {
   SIGN_IN: "/sign-in",
   SIGN_UP: "/sign-up",
   PROFILE: "/profile",
+  INFLUENCERS_DETAIL: "/influencers/[username]",
 } as const;
 
 export default ROUTES;

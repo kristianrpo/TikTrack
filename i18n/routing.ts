@@ -26,9 +26,14 @@ export const routing = defineRouting({
       en: "/sign-up",
       es: "/registrarse",
     },
+    "/influencers/[username]": {
+      en: "/influencers/[username]",
+      es: "/creador-de-contenido/[username]",
+    },
   },
 });
 
 export type Locale = (typeof routing.locales)[number];
+
 export const { Link, redirect, usePathname, useRouter, getPathname } =
   createNavigation(routing);

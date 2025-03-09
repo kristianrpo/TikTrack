@@ -2,6 +2,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { JSX } from "react";
 import { Link, useRouter } from "~/i18n/routing";
 import Image from "next/image";
 import Button from "./button";
@@ -13,7 +14,7 @@ type NavbarLink = {
   path: (typeof ROUTES)[keyof typeof ROUTES];
 };
 
-export default function NavBar() {
+export default function NavBar(): JSX.Element {
   const t = useTranslations("NavBar");
   const router = useRouter();
   const { user } = useAuth(); // Obtén el estado de autenticación
@@ -46,6 +47,8 @@ export default function NavBar() {
             }
           >
             {user ? t("profile") : t("getStarted")} {/* Cambia el texto del botón */}
+          <Button href="#" variant="primary">
+            {t("getStarted")}
           </Button>
           <button
             data-collapse-toggle="navbar-cta"
@@ -76,11 +79,12 @@ export default function NavBar() {
           id="navbar-cta"
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
-            {navbarLinks.map(({ label, path }, index) => (
-              <li key={index}>
-                <Link href={{ pathname: path }}>{label}</Link>
-              </li>
-            ))}
+            <li>
+              <Link href={ROUTES["HOME"]}> {t("home")} </Link>
+            </li>
+            <li>
+              <Link href={ROUTES["INFLUENCERS"]}> {t("influencers")} </Link>
+            </li>
           </ul>
         </div>
       </div>
