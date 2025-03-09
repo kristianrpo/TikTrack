@@ -1,5 +1,5 @@
 // constants/urls.ts
-const ROUTES = {
+export const ROUTES = {
   HOME: "/",
   INFLUENCERS: "/influencers",
   USERS: "/users",
@@ -9,4 +9,5 @@ const ROUTES = {
   INFLUENCERS_DETAIL: "/influencers/[username]",
 } as const;
 
-export default ROUTES;
+export type RouteKey = keyof typeof ROUTES;
+export type RoutePath = (typeof ROUTES)[RouteKey];

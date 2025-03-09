@@ -6,12 +6,12 @@ import { JSX } from "react";
 import { Link, useRouter } from "~/i18n/routing";
 import Image from "next/image";
 import Button from "./button";
-import ROUTES from "~/constants/urls";
+import { ROUTES } from "~/constants/urls"; // Importa ROUTES como una constante nombrada
 import { useAuth } from "@/application/services/auth.hook"; // Importa el hook de autenticación
 
 type NavbarLink = {
   label: string;
-  path: (typeof ROUTES)[keyof typeof ROUTES];
+  path: (typeof ROUTES)[keyof typeof ROUTES]; // Usa el tipo correcto
 };
 
 export default function NavBar(): JSX.Element {
@@ -23,7 +23,7 @@ export default function NavBar(): JSX.Element {
 
   const navbarLinks: NavbarLink[] = navbarPages.map((pageKey) => ({
     label: t(pageKey.toLowerCase()),
-    path: ROUTES[pageKey],
+    path: ROUTES[pageKey], // Usa ROUTES para obtener la ruta
   }));
 
   return (
@@ -47,8 +47,6 @@ export default function NavBar(): JSX.Element {
             }
           >
             {user ? t("profile") : t("getStarted")} {/* Cambia el texto del botón */}
-          <Button href="#" variant="primary">
-            {t("getStarted")}
           </Button>
           <button
             data-collapse-toggle="navbar-cta"
@@ -79,12 +77,11 @@ export default function NavBar(): JSX.Element {
           id="navbar-cta"
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
-            <li>
-              <Link href={ROUTES["HOME"]}> {t("home")} </Link>
-            </li>
-            <li>
-              <Link href={ROUTES["INFLUENCERS"]}> {t("influencers")} </Link>
-            </li>
+            {navbarLinks.map((link) => (
+              <li key={link.path}>
+                <Link href={{ pathname: link.path }}>{link.label}</Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
