@@ -10,7 +10,7 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const { login, error, loading, user } = useAuth();
   const router = useRouter();
-  const t = useTranslations("SignInPage"); // Usa useTranslations para traducciones
+  const t = useTranslations("SignInPage"); 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,12 +27,12 @@ export default function SignInPage() {
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center mb-6 text-purple">
-          {t("title")} {/* Usa la traducción para el título */}
+          {t("title")} 
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              {t("emailLabel")} {/* Usa la traducción para la etiqueta de correo */}
+              {t("emailLabel")} 
             </label>
             <input
               type="email"
@@ -44,7 +44,7 @@ export default function SignInPage() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              {t("passwordLabel")} {/* Usa la traducción para la etiqueta de contraseña */}
+              {t("passwordLabel")} 
             </label>
             <input
               type="password"
@@ -61,17 +61,17 @@ export default function SignInPage() {
               className="w-full bg-purple text-white py-2 rounded hover:bg-darkPurple transition-colors"
               disabled={loading}
             >
-              {loading ? t("loading") : t("signInButton")} {/* Usa la traducción para el botón */}
+              {loading ? t("loading") : t("signInButton")} 
             </button>
           </div>
           <div className="text-center">
             <span className="text-sm text-gray-600">
-              {t("noAccount")}{" "} {/* Usa la traducción para el texto */}
+              {t("noAccount")}{" "} 
               <Link
-                href="/sign-up" // Redirige a /sign-up (internacionalizado)
+                href="/sign-up" 
                 className="text-purple hover:underline"
               >
-                {t("registerLink")} {/* Usa la traducción para el enlace */}
+                {t("registerLink")} 
               </Link>
             </span>
           </div>

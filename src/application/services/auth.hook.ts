@@ -19,7 +19,6 @@ export function useAuth() {
     initialized: false,
   });
 
-  // Verifica si hay un usuario en sessionStorage al cargar el componente
   useEffect(() => {
     const user = sessionStorage.getItem("user");
     const token = sessionStorage.getItem("token");
