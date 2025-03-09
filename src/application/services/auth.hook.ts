@@ -1,3 +1,4 @@
+// application/services/auth.hook.ts
 "use client";
 
 import { useState, useEffect } from "react";
@@ -18,9 +19,21 @@ export function useAuth() {
     initialized: false,
   });
 
-  // 🔹 Solo inicializa el estado, pero no recupera credenciales automáticamente
+  // Verifica si hay un usuario en sessionStorage al cargar el componente
   useEffect(() => {
-    setState((prevState) => ({ ...prevState, initialized: true }));
+    const user = sessionStorage.getItem("user");
+    const token = sessionStorage.getItem("token");
+
+    if (user && token) {
+      setState({
+        user: JSON.parse(user),
+        error: null,
+        loading: false,
+        initialized: true,
+      });
+    } else {
+      setState((prevState) => ({ ...prevState, initialized: true }));
+    }
   }, []);
 
   const login = async (email: string, password: string) => {
@@ -29,10 +42,8 @@ export function useAuth() {
     try {
       const user = await loginUser(email, password);
       if (user) {
-        if (typeof window !== "undefined") {
-          sessionStorage.setItem("user", JSON.stringify(user)); // Almacena credenciales solo después de un inicio de sesión exitoso
-          sessionStorage.setItem("token", user.token);
-        }
+        sessionStorage.setItem("user", JSON.stringify(user));
+        sessionStorage.setItem("token", user.token);
         setState({ user, error: null, loading: false, initialized: true });
       } else {
         setState({
@@ -54,10 +65,8 @@ export function useAuth() {
   };
 
   const logout = () => {
-    if (typeof window !== "undefined") {
-      sessionStorage.removeItem("user"); 
-      sessionStorage.removeItem("token");
-    }
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("token");
     setState({ user: null, error: null, loading: false, initialized: true });
   };
 

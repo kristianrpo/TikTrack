@@ -1,31 +1,29 @@
-"use client"; // Asegúrate de marcar el componente como "use client"
+// components/navbar.tsx
+"use client";
 
 import { useTranslations } from "next-intl";
-import { Link, useRouter } from "~/i18n/routing"; // Importa useRouter de next-intl
+import { Link, useRouter } from "~/i18n/routing";
 import Image from "next/image";
 import Button from "./button";
 import ROUTES from "~/constants/urls";
-import { JSX } from "react";
+import { useAuth } from "@/application/services/auth.hook"; // Importa el hook de autenticación
 
 type NavbarLink = {
   label: string;
   path: (typeof ROUTES)[keyof typeof ROUTES];
 };
 
-export default function NavBar(): JSX.Element {
-  const t = useTranslations("NavBar"); // Usa useTranslations para traducciones
-  const router = useRouter(); // Usa useRouter para la redirección
+export default function NavBar() {
+  const t = useTranslations("NavBar");
+  const router = useRouter();
+  const { user } = useAuth(); // Obtén el estado de autenticación
 
   const navbarPages: (keyof typeof ROUTES)[] = ["HOME", "INFLUENCERS"];
 
-  const navbarLinks: NavbarLink[] = [];
-
-  navbarPages.forEach((pageKey) => {
-    navbarLinks.push({
-      label: t(pageKey.toLowerCase()), // Traduce la etiqueta
-      path: ROUTES[pageKey],
-    });
-  });
+  const navbarLinks: NavbarLink[] = navbarPages.map((pageKey) => ({
+    label: t(pageKey.toLowerCase()),
+    path: ROUTES[pageKey],
+  }));
 
   return (
     <nav className="bg-white border-gray-200">
@@ -41,9 +39,13 @@ export default function NavBar(): JSX.Element {
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <Button
             variant="primary"
-            onClick={() => router.push("/sign-in")} // Redirige a /sign-in (internacionalizado)
+            onClick={() =>
+              user
+                ? router.push(ROUTES.INFLUENCERS) // Redirige a la página de perfil
+                : router.push(ROUTES.SIGN_IN) // Redirige a la página de inicio de sesión
+            }
           >
-            {t("getStarted")} {/* Usa la traducción para el botón */}
+            {user ? t("profile") : t("getStarted")} {/* Cambia el texto del botón */}
           </Button>
           <button
             data-collapse-toggle="navbar-cta"
