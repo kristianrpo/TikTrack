@@ -12,7 +12,6 @@ interface MessageCardProps {
 }
 
 export default function MessageCard({ id, content, onCustomize }: MessageCardProps) {
-  const router = useRouter();
   const [editing, setEditing] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);

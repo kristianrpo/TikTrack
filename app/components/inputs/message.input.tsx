@@ -29,7 +29,7 @@ export default function MessageInput({ onSend, selectedMessage }: MessageInputPr
   };
 
   return (
-    <form onSubmit={handleSubmit} className="fixed bottom-0 left-0 w-full bg-white border-t p-4">
+    <form onSubmit={handleSubmit} className="bottom-0 left-0 w-full bg-white border-t p-4">
       <div className="max-w-4xl mx-auto flex gap-4">
         <input
           type="text"

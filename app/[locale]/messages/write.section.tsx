@@ -1,25 +1,30 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
+import CreateMessage from "~/app/components/forms/create.message";
 import MessageCard from "~/app/components/cards/message.card";
-import MessageInput from "~/app/components/message.input";
+import MessageInput from "~/app/components/inputs/message.input";
 
 interface Message {
   id: number;
   content: string;
-  created_at?: string;
-  updated_at?: string;
 }
 
-interface MessageListProps {
+interface WriteSectionProps {
   messages: Message[];
 }
 
-export default function MessageList({ messages }: MessageListProps) {
+export default function WriteSection({ messages }: WriteSectionProps) {
+  const t = useTranslations("MessagesPage");
   const [selectedMessage, setSelectedMessage] = useState<string | null>(null);
 
   return (
     <div>
+      <h3 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl text-center">
+        {t("title")}
+      </h3>
+      {messages.length < 3 && <CreateMessage />}
       <div className="flex flex-wrap w-full justify-center sm:justify-baseline">
         {messages.map((message) => (
           <MessageCard 
@@ -30,6 +35,7 @@ export default function MessageList({ messages }: MessageListProps) {
           />
         ))}
       </div>
+      <MessageInput onSend={(msg) => {}} selectedMessage={selectedMessage} />
     </div>
   );
 }
