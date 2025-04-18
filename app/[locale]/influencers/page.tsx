@@ -1,14 +1,24 @@
-import { JSX } from "react";
-import { getTranslations } from "next-intl/server";
-
-import { influencerController } from "@/interface-adapters/controllers/influencer.controller";
-
+import ROUTES from "~/constants/urls/urls";
+import ROUTES_API from "~/constants/urls/api.urls";
 import InfluencerCard from "~/app/components/cards/influencer.card";
 import Pagination from "~/app/components/pagination";
 import FireIcon from "~/app/components/icons/fire.icon";
+import axios from "axios";
+import { JSX } from "react";
+import { getTranslations } from "next-intl/server";
+import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
 
 interface IndexProps {
-  params: Promise<{ page?: string }>;
+  searchParams: { page?: string };
+}
+
+interface InfluencerOverview {
+  username: string;
+  profilePicture: string;
+  city: string;
+  engagementVisualizationRate: number;
+  followers: string;
+  updatedAt: string;
 }
 
 export async function generateMetadata() {
@@ -21,10 +31,18 @@ export async function generateMetadata() {
 }
 
 export default async function Index({
-  params,
+  searchParams,
 }: IndexProps): Promise<JSX.Element> {
   const t = await getTranslations("InfluencersIndexPage");
-  const pageData = await influencerController.index({ params });
+  const safeParams = Object.fromEntries(
+    Object.entries(await searchParams).filter(
+      ([, value]) => typeof value === "string"
+    ) as [string, string][]
+  );
+  const query = new URLSearchParams(safeParams).toString();
+  const paginationCurrentNumber = parseInt(safeParams.page || "1");
+  const pageData = (await axios.get(ROUTES_API.INFLUENCER_INDEX + `?${query}`))
+    .data.pageData;
   const influencers = pageData.influencers;
   const count = pageData.count;
   const start = pageData.start;
@@ -34,25 +52,30 @@ export default async function Index({
 
   return (
     <div>
+      <NotificationSessionStorage />
       <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-center">
         {t("title")} <FireIcon className="text-lightPurple" />
       </h1>
       <div>
         <div className="flex flex-wrap w-full justify-center sm:justify-baseline">
-          {influencers.map((influencer) => (
-            <div key={influencer.getUsername()}>
+          {influencers.map((influencer: InfluencerOverview) => (
+            <div key={influencer.username}>
               <InfluencerCard
-                username={influencer.getUsername()}
-                profilePicture={influencer.getProfilePicture()}
-                city={influencer.getCity()}
-                engagementVisualizationRate={influencer.getEngagementVisualizationRate()}
-                followers={influencer.getFormattedFollowers()}
-                updatedAt={influencer.getUpdatedAt()}
+                username={influencer.username}
+                profilePicture={influencer.profilePicture}
+                city={influencer.city}
+                engagementVisualizationRate={
+                  influencer.engagementVisualizationRate
+                }
+                followers={influencer.followers}
+                updatedAt={influencer.updatedAt}
               />
             </div>
           ))}
         </div>
         <Pagination
+          pathname={ROUTES.INFLUENCERS}
+          page={paginationCurrentNumber}
           hasNextPage={hasNextPage}
           hasPreviousPage={hasPreviousPage}
           totalElements={count}

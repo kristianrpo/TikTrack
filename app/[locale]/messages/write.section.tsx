@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import CreateMessage from "~/app/components/forms/create.message";
 import MessageCard from "~/app/components/cards/message.card";
-import MessageInput from "~/app/components/inputs/message.input";
 
 interface Message {
   id: number;
@@ -27,10 +26,10 @@ export default function WriteSection({ messages }: WriteSectionProps) {
       {messages.length < 3 && <CreateMessage />}
       <div className="flex flex-wrap w-full justify-center sm:justify-baseline">
         {messages.map((message) => (
-          <MessageCard 
-            key={message.id} 
-            id={message.id} 
-            content={message.content} 
+          <MessageCard
+            key={message.id}
+            id={message.id}
+            content={message.content}
             onCustomize={(content) => setSelectedMessage(content)}
           />
         ))}

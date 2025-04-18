@@ -1,8 +1,9 @@
-import { cookies } from "next/headers";
-import jwtUtil from "@/shared/utils/jwt.util";
-import { userController } from "@/interface-adapters/controllers/user.controller";
-import { getTranslations } from "next-intl/server";
+import ROUTES_API from "~/constants/urls/api.urls";
 import UserCard from "~/app/components/cards/user.card";
+import jwtUtil from "@/shared/utils/jwt.util";
+import { cookies } from "next/headers";
+import { getTranslations } from "next-intl/server";
+import axios from "axios";
 
 export default async function ProfilePage() {
   const t = await getTranslations("ProfilePage");
@@ -19,7 +20,7 @@ export default async function ProfilePage() {
 
   let userId;
   try {
-    userId = jwtUtil.getUserIdFromToken(token);
+    userId = await jwtUtil.getUserIdFromToken(token);
   } catch {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
@@ -28,7 +29,12 @@ export default async function ProfilePage() {
     );
   }
 
-  const { user, is_success } = await userController.getProfile(userId);
+  const query = "userId=" + userId;
+  const pageData = (await axios.get(ROUTES_API.PROFILE_SHOW + `?${query}`)).data
+    .pageData;
+
+  const user = pageData.user;
+  const is_success = pageData.is_success;
 
   if (!is_success) {
     return (
