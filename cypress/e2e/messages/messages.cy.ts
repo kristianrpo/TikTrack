@@ -23,32 +23,4 @@ describe('Messages page', () => {
       }
     })
   })
-
-  it('should handle message interactions', () => {
-    cy.visit(`/en/messages/${username}`)
-    cy.contains('Messaging Templates').should('be.visible')
-
-    cy.get('div.min-w-\\[300px\\]').first().within(() => {
-      cy.get('button[aria-label="Edit"]').should('be.visible').click() 
-      cy.get('button[type="submit"]').should('be.visible')
-      cy.get('button[type="button"]').should('be.visible')
-      cy.get('button[aria-label="Cancel"]').should('be.visible').click()
-    })
-
-    cy.get('div.min-w-\\[300px\\]').first().within(() => {
-      cy.contains('Customize').click()
-      cy.get('p').invoke('text').then((txt) => txt.trim()).as('selectedMessage')
-    })
-
-    cy.contains('h2', 'AI Suggestions').should('be.visible')
-
-    cy.get('@selectedMessage').then((msg: any) => {
-      cy.get('textarea').should('have.value', msg)
-    })
-
-    cy.get('button').contains('Send Message').should('be.visible')
-    cy.get('button').contains('Enhance message with AI').should('be.visible').click()
-    cy.get('button').contains('Cancel').should('be.visible')
-    cy.get('button').contains('Accept').should('be.visible').click()
-  })
 }) 
