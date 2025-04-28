@@ -10,7 +10,7 @@ describe('Messages page', () => {
   })
   
   it('should display messages', () => {
-    cy.visit(`${api}/en/messages/${username}`)
+    cy.visit(`/en/messages/${username}`)
     cy.contains('Messaging Templates').should('be.visible')
 
     cy.get('div.min-w-\\[300px\\]').then($cards => {
@@ -25,7 +25,7 @@ describe('Messages page', () => {
   })
 
   it('should handle message interactions', () => {
-    cy.visit(`${api}/en/messages/${username}`)
+    cy.visit(`/en/messages/${username}`)
     cy.contains('Messaging Templates').should('be.visible')
 
     cy.get('div.min-w-\\[300px\\]').first().within(() => {

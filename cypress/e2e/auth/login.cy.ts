@@ -7,7 +7,7 @@ describe('Login page', () => {
   })
 
   it('should handle login form submission and validation', () => {
-    cy.visit(`${api}/en/sign-in`)
+    cy.visit('/en/sign-in')
     cy.contains('Sign In').should('be.visible')
 
     cy.get('form').should('be.visible')
@@ -38,7 +38,7 @@ describe('Login page', () => {
   })
 
   it('should have a register link', () => {
-    cy.visit(`${api}/en/sign-in`)
+    cy.visit('/en/sign-in')
     cy.get('a[href="/en/sign-up"]').should('be.visible').and('contain', 'Register')
   })
 })

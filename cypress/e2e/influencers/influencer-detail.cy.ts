@@ -11,7 +11,7 @@ describe('Influencer detail page', () => {
   })
 
   it('shows the influencer detail card with all metrics and info', function () {
-    cy.visit(`${api}/en/influencers/${influencer.username}`)
+    cy.visit(`/en/influencers/${influencer.username}`)
 
     cy.contains('a', influencer.profile_name).should('be.visible')
     cy.contains('a', `@${influencer.username}`).should('be.visible')

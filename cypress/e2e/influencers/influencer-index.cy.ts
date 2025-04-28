@@ -7,7 +7,7 @@ describe('Influencers index page', () => {
   })
   
   it('lists influencer cards', () => {
-    cy.visit(`${api}/en/influencers`)
+    cy.visit('/en/influencers')
     cy.contains('Top Influencers').should('be.visible')
 
     cy.get('.w-80.bg-white.border.shadow-sm').first().within(() => {
@@ -21,7 +21,7 @@ describe('Influencers index page', () => {
   })
 
   it('compares influencers', () => {
-    cy.visit(`${api}/en/influencers`)
+    cy.visit('/en/influencers')
     cy.contains('Top Influencers').should('be.visible')
 
     cy.get('button').contains('Compare Influencers').click()
