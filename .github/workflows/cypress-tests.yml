@@ -36,6 +36,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Create .env file
+        run: |
+          echo "DATABASE_URL=postgresql://user:password@localhost:5432/testdb" >> .env
+          echo "NEXT_PUBLIC_BASE_URL_API=http://localhost:3000" >> .env
+
       - name: Wait for PostgreSQL to be ready
         run: |
           until pg_isready -h localhost -U user; do
