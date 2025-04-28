@@ -51,9 +51,11 @@ jobs:
       - name: List migration files
         run: ls -l src/infrastructure/database/migrations
 
-      - name: Run database migrations
+      - name: Run SQL migrations
         run: |
-          npx sequelize-cli db:migrate --url postgres://user:password@localhost:5432/testdb --migrations-path src/infrastructure/database/migrations
+          for f in src/infrastructure/database/migrations/*.sql; do
+            PGPASSWORD=password psql -h localhost -U user -d testdb -f "$f"
+          done
 
       - name: Insert test data into PostgreSQL
         run: |
