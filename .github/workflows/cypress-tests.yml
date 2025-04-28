@@ -70,6 +70,11 @@ jobs:
             ('allaccesscolombia', 'All Access Colombia', 'https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/b55f28eeae54d50c18a486a6f0eaf17a~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=414690f7&x-expires=1745607600&x-signature=uptMLjNhS1OElwmHoDGbgrVGhII%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=maliva', 
             'https://www.tiktok.com/@allaccesscolombia', 762.1, 38.4, 88, 61.4, 18764.9, 16300, 'Medellín', '["7298163366957272326","7254017244424899845","7253892153544428806"]', 'inactive');
 
+            INSERT INTO influencers (username, profile_name, profile_picture, profile_url, average_likes, average_comments, average_shares, average_saves, average_views, followers, city, featured_videos, status)
+            VALUES 
+            ('quenotaesmedellin', 'quenotaesmedellin', 'https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/b55f28eeae54d50c18a486a6f0eaf17a~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=414690f7&x-expires=1745607600&x-signature=uptMLjNhS1OElwmHoDGbgrVGhII%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=maliva', 
+            'https://www.tiktok.com/@quenotaesmedellin', 45.8, 0.8, 6, 1.4, 583.5, 16500, 'Medellín', '["7493173187681799429","7493152576695930118","7493045371896139063"]', 'active');
+
             INSERT INTO messages (content)
             VALUES 
             ('Hi, we came across your profile and were really impressed by your content! We believe your influence could be a great fit for promoting job opportunities. We''d love to collaborate with you - let us know if you''re interested!');
