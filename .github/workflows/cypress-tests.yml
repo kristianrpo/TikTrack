@@ -69,7 +69,7 @@ jobs:
             VALUES 
             ('Hi, we came across your profile and were really impressed by your content! We believe your influence could be a great fit for promoting job opportunities. We''d love to collaborate with you - let us know if you''re interested!');
 
-            INSERT INTO users (email, password, username) 
+            INSERT INTO users (email, password, name) 
             VALUES 
             ('testuser@email.com', '$2b$10$DLNNCcxtJ2.MIyKNdg9TA.PGvc/TmGkLmq6btjSq/abWHBUJ/63Oa', 'TestLoginUser');
           "
