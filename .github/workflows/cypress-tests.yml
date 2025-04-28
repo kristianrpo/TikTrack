@@ -45,7 +45,7 @@ jobs:
 
       - name: Run database migrations
         run: |
-          npx sequelize-cli db:migrate --url postgres://user:password@localhost:5432/testdb
+          npx sequelize-cli db:migrate --url postgres://user:password@localhost:5432/testdb --migrations-path src/infrastructure/database/migrations
 
       - name: Insert test data into PostgreSQL
         run: |
