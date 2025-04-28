@@ -43,6 +43,11 @@ jobs:
             sleep 2
           done
 
+      - name: Drop and recreate test database
+        run: |
+          PGPASSWORD=password psql -h localhost -U user -c "DROP DATABASE IF EXISTS testdb;"
+          PGPASSWORD=password psql -h localhost -U user -c "CREATE DATABASE testdb;"
+
       - name: Run database migrations
         run: |
           npx sequelize-cli db:migrate --url postgres://user:password@localhost:5432/testdb --migrations-path src/infrastructure/database/migrations
