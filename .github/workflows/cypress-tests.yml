@@ -49,7 +49,7 @@ jobs:
 
       - name: Insert test data into PostgreSQL
         run: |
-          psql -h localhost -U user -d testdb -c "
+          PGPASSWORD=password psql -h localhost -U user -d testdb -c "
             INSERT INTO influencers (username, profile_name, profile_picture, profile_url, average_likes, average_comments, average_shares, average_saves, average_views, followers, city, featured_videos, status)
             VALUES 
             ('allaccesscolombia', 'All Access Colombia', 'https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/b55f28eeae54d50c18a486a6f0eaf17a~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=414690f7&x-expires=1745607600&x-signature=uptMLjNhS1OElwmHoDGbgrVGhII%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=maliva', 
