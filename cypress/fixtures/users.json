@@ -1,0 +1,11 @@
+{
+  "login": {
+    "email": "testuser@email.com",
+    "password": "testpassword"
+  },
+  "register": {
+    "username": "testregisteruser",
+    "email": "testregisteruserreplace@email.com",
+    "password": "testregisterpassword"
+  }
+}

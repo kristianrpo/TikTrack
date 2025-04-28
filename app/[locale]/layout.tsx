@@ -56,12 +56,6 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <head>
-        <link
-          href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
-          rel="stylesheet"
-        />
-      </head>
       <body className="">
         <NextIntlClientProvider messages={messages}>
           <NavBar
@@ -73,7 +67,6 @@ export default async function LocaleLayout({
           {children}
           <Footer />
         </NextIntlClientProvider>
-        <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
       </body>
     </html>
   );
